@@ -13,6 +13,7 @@
     <script src="collections/Songs.js"></script>
     <script src="collections/SongQueue.js"></script>
     <script src="models/AppModel.js"></script>
+    <script src="router/Router.js"></script>
 
     <script src="views/PlayerView.js"></script>
     <script src="views/LibraryView.js"></script>
@@ -25,10 +26,18 @@
       $(function() {
         // set up model objects
         var library = new Songs(songData);
-        var app = new AppModel({library: library});
+        var router = new Router();
+
+        var app = new AppModel({
+            library: library,
+            router: router
+        });
 
         // build a view for the top level of the whole app
         var appView = new AppView({model: app});
+
+        Backbone.history.start();
+
 
         // put the view onto the screen
         $('body').append(appView.render());
