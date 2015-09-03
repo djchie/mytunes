@@ -1,47 +1,58 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <!-- Scripts may be placed anywhere on a page. But FYI, they block rendering of elements
-     below them until after the scripts load-->
-    <script src="bower_components/jquery/jquery.min.js"></script>
-    <script src="bower_components/underscore/underscore.js"></script>
-    <script src="bower_components/backbone/backbone.js"></script>
+      <!-- Scripts may be placed anywhere on a page. But FYI, they block rendering of elements
+       below them until after the scripts load-->
+      <script src="bower_components/jquery/jquery.min.js"></script>
+      <script src="bower_components/underscore/underscore.js"></script>
+      <script src="bower_components/backbone/backbone.js"></script>
+      <script src="bower_components/particles.js/particles.js"></script>
 
-    <script src="data/data.js"></script>
+      <script src="data/data.js"></script>
 
-    <script src="models/SongModel.js"></script>
-    <script src="collections/Songs.js"></script>
-    <script src="collections/SongQueue.js"></script>
-    <script src="models/AppModel.js"></script>
-    <script src="router/Router.js"></script>
+      <script src="models/SongModel.js"></script>
+      <script src="collections/Songs.js"></script>
+      <script src="collections/SongQueue.js"></script>
+      <script src="models/AppModel.js"></script>
+      <script src="router/Router.js"></script>
 
-    <script src="views/PlayerView.js"></script>
-    <script src="views/LibraryView.js"></script>
-    <script src="views/LibraryEntryView.js"></script>
-    <script src="views/AppView.js"></script>
-    <script src="views/SongQueueView.js"></script>
-    <script src="views/SongQueueEntryView.js"></script>
+      <script src="views/PlayerView.js"></script>
+      <script src="views/LibraryView.js"></script>
+      <script src="views/LibraryEntryView.js"></script>
+      <script src="views/AppView.js"></script>
+      <script src="views/SongQueueView.js"></script>
+      <script src="views/SongQueueEntryView.js"></script>
 
-    <script>
-      $(function() {
-        // set up model objects
-        var library = new Songs(songData);
-        var router = new Router();
+      <script>
+        $(function() {
+          particlesJS.load('particles-js', 'assets/particles.json', function() {
+            console.log('callback - particles.js config loaded');
+          });
 
-        var app = new AppModel({
+          // set up model objects
+          var library = new Songs(songData);
+          var router = new Router();
+
+          var app = new AppModel({
             library: library,
             router: router
+          });
+
+          // build a view for the top level of the whole app
+          var appView = new AppView({model: app});
+
+          Backbone.history.start();
+
+          // Adding in particles background and make it red, for the hell of it
+          $('body').attr('id', 'particles-js').css({
+            'height': '100vh',
+            'background': '#b61924'
+          });
+
+          // put the view onto the screen
+          $('body').append(appView.render().css({'position': 'fixed'}));
+
         });
-
-        // build a view for the top level of the whole app
-        var appView = new AppView({model: app});
-
-        Backbone.history.start();
-
-
-        // put the view onto the screen
-        $('body').append(appView.render());
-      });
-    </script>
+      </script>
   </body>
 </html>
