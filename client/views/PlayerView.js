@@ -6,17 +6,13 @@ var PlayerView = Backbone.View.extend({
   el: '<audio controls autoplay />',
 
   events: {
-    'ended':'ended'
+    'ended':'handleEnded'
   },
 
   initialize: function() {
-    // this.$el.bind('ended', function() {
+    // this.$el.on('ended', function() {
     //   this.model.ended();
-    // };
-
-    // this.el.addEventListener('ended', function() {
-    //   this.model.ended();
-    // });
+    // }.bind(this));
   },
 
   setSong: function(song) {
@@ -24,12 +20,20 @@ var PlayerView = Backbone.View.extend({
     this.render();
   },
 
-  ended: function() {
+  handleEnded: function() {
     this.model.ended();
   },
 
   render: function() {
-    return this.$el.attr('src', this.model ? this.model.get('url') : '');
+
+    var srcString = this.model.get('url');
+    if (srcString === undefined) {
+      srcString = '';
+    }
+    return this.$el.attr('src', srcString);
+
+    // Original code
+    // return this.$el.attr('src', this.model ? this.model.get('url') : '');
   }
 
 });
