@@ -1,5 +1,5 @@
-// SongQueue.js - Defines a backbone model class for the song queue.
-var SongQueue = Songs.extend({
+// Playlist.js - Defines a backbone model class for a playlist.
+var Playlist = Songs.extend({
 
   initialize: function() {
 
